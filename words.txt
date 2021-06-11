@@ -1,0 +1,15 @@
+angle
+armoire
+chemise
+metier
+heureux
+boire
+faim
+eau
+dossier
+etagere
+pied
+menthe
+lourd
+balcon
+velo
