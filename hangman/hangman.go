@@ -11,6 +11,7 @@ type Game struct {
 	FoundLetters []string // Good letters
 	UsedLetters  []string
 	TurnsLeft    int
+	Tries        int
 }
 
 func New(turns int, word string) (*Game, error) {
@@ -30,6 +31,7 @@ func New(turns int, word string) (*Game, error) {
 		FoundLetters: found,
 		UsedLetters:  []string{},
 		TurnsLeft:    turns,
+		Tries:        0,
 	}
 
 	return g, nil
@@ -41,11 +43,11 @@ func (g *Game) MakeAGuess(guess string) {
 	switch g.State {
 	case "won", "lost":
 		return
-
 	}
 
 	if letterInWord(guess, g.UsedLetters) {
 		g.State = "alreadyGuessed"
+
 	} else if letterInWord(guess, g.Letters) {
 		g.State = "goodGuess"
 		g.RevealLetter(guess)
@@ -61,6 +63,9 @@ func (g *Game) MakeAGuess(guess string) {
 			g.State = "lost"
 		}
 	}
+	g.Tries++
+	fmt.Printf("You did %v tries\n", g.Tries)
+	fmt.Printf("It remain %v tries\n", g.TurnsLeft)
 }
 
 func hasWon(letters []string, foundLetters []string) bool {
